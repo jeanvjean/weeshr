@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package userpackage;
+
+message UserRequest {
+  string payload = 2;
+}
+message membersResponse {
+  string members = 3;
+}
+message tokenResponse {
+  string token = 5;
+}
+
+service User {
+  rpc getTeamMembersByProject (UserRequest) returns (membersResponse) {}
+  rpc fetchToken(UserRequest) returns(tokenResponse){}
+}

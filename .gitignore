@@ -1,0 +1,12 @@
+node_modules
+*.log
+.env
+dist
+tsconfig2.json
+src/**/*.js
+.nyc_output
+.prettierrc.js
+package-lock.json
+pm2.json
+Procfile
+package-lock.json

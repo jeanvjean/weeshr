@@ -1,0 +1,17 @@
+{
+    "defaultEnv": {"ENV": "NODE_ENV"},
+    "development": {
+        "ENV": "DEV_DATABASE_CONNECTION_STRING"
+    },
+    "test":{
+        "ENV": "TEST_DATABASE_CONNECTION_STRING"
+    },
+    "production":{
+        "ENV": "PROD_DATABASE_CONNECTION_STRING"
+    },
+    "staging":{
+        "ENV": "STAGING_DATABASE_CONNECTION_STRING" 
+    },
+    "sql-file": true,
+	"migrations-dir": "./database/migrations"
+  }

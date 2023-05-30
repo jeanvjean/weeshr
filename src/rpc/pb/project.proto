@@ -1,0 +1,11 @@
+syntax = "proto3";
+package projectpackage;
+message AppUpdateResponse {
+  bool done = 2;
+}
+message AppUpdateRequest {
+  string payload = 1;
+}
+service Project {
+  rpc updateAppStatus (AppUpdateRequest) returns (AppUpdateResponse) {}
+}

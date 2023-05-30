@@ -1,0 +1,58 @@
+{
+    "root": true,
+    "env": {
+        "es6": true,
+        "node": true
+    },
+    "extends": [
+        "eslint:recommended",
+        "google", "plugin:@typescript-eslint/recommended"
+    ],
+    "globals": {
+        "Atomics": "readonly",
+        "SharedArrayBuffer": "readonly",
+        "process": true
+    },
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaVersion": 2018,
+        "sourceType": "module",
+        "project": "./tsconfig.json"
+    },
+    "plugins": [
+        "@typescript-eslint"
+    ],
+    "rules": {
+        "require-jsdoc": ["off"],
+        "no-undef": ["off"],
+        "comma-dangle": "off",
+        "indent": ["error", 2],
+        "max-lines": ["error", 400],
+        "max-len": ["off"],
+        "@typescript-eslint/ban-ts-ignore":["off"],
+        "@typescript-eslint/explicit-function-return-type":["off"],
+        "no-mixed-spaces-and-tabs": ["off"],
+        "@typescript-eslint/camelcase": ["off"],
+        "object-curly-spacing": ["off"],
+        "array-bracket-spacing": "off",
+        "no-tabs": ["off"],
+        "quotes": [
+            "error",
+            "single",
+            {
+                "avoidEscape": true,
+                "allowTemplateLiterals": true
+            }
+        ],
+        "brace-style": [
+            "error",
+            "1tbs",
+            {
+              "allowSingleLine": true
+            }
+          ],
+        "comma-spacing": "warn",
+        "no-console": 0,
+        "no-invalid-this": "warn"
+    }
+}

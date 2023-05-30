@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package notifypackage;
+
+message NotifyRequest {
+    string payload = 1;
+}
+message NotifyResponse {
+    bool done = 2;
+}
+
+service Notify {
+    rpc reportData (NotifyRequest) returns (NotifyResponse) {}
+}
