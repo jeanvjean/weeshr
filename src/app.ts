@@ -6,7 +6,6 @@ import * as morgan from 'morgan';
 import * as helmet from 'helmet';
 import * as cors from 'cors';
 import * as compression from 'compression';
-import conf from './configs/databaseConnection';
 
 import AppConfig from './configs/app';
 import {ctrl} from './controllers';
@@ -24,13 +23,6 @@ class Application {
 	  this.handleExceptions();
 	  this.express.listen(AppConfig.port, () => {
 	    console.log(`${AppConfig.appName} is listening at port ${AppConfig.port}`);
-	    // @ts-ignore
-	    // connect(process.env.DEV_DATABASE_URL, () => {
-	    //     console.log(`connected to MongoDb`);
-	    //   });
-	    conf.postgresDb.connect().then((con: any) => {
-	      console.log(`connected to ${con.client.database} database`);
-	      });
 	  });
 	}
 

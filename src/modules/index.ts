@@ -1,4 +1,4 @@
-import driver from '../modules/drivers';
+import driver from './blog';
 
 export {
   driver

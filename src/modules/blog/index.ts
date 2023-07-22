@@ -1,43 +1,42 @@
+import { blogModel } from '../../models/index';
 import {Module} from '../module';
-import {DriverService} from 'services/index';
-import {DriverInterface} from '../../models/drivers';
+import {BlogInterface} from '../../models/blog';
 
 export type DriverPropInterface = {
-    driverService: DriverService;
+    blog: typeof blogModel;
 }
 
-type UserResponse = {
-    data: DriverInterface;
+type BlogResponse = {
+    data: BlogInterface;
     status: string;
 }
 
 
 export default class DriverModule extends Module {
-    private service: DriverService;
+    private blog: typeof blogModel;
 
     constructor(props: DriverPropInterface) {
       super();
-      this.service = props.driverService;
+      this.blog = props.blog;
     }
 
-    public async create(data: DriverInterface): Promise<UserResponse> {
+    public async create(data: BlogInterface): Promise<BlogResponse> {
       try {
-        const {name, email, phoneNumber, licenseNumber, carNumber} = data;
-        const driver = {
-          name,
-          email,
-          phoneNumber,
-          carNumber,
-          licenseNumber
+        const { title, content } = data;
+        const blogPost = {
+          title,
+          content,
+          author: 'author_id',
         };
-        const driverData = await this.service.createDriver(driver);
-        console.log({driverData});
+        // eslint-disable-next-line new-cap
+        const blog = new this.blog(blogPost);
+        await blog.save();
         return {
-          data: driverData,
-          status: 'success'
+          data: blog,
+          status: 'Blog created successfully'
         };
       } catch (error) {
-        throw new Error('an error occured');
+        throw new Error('an error ocurred');
       }
     }
 

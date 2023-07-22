@@ -28,25 +28,16 @@ export default class DriverValidator extends Ctrl {
     };
   }
 
-  static validateDriverSchema(): ValidationChain[] {
+  static validateBlogSchema(): ValidationChain[] {
     return [
-      check('name')
+      check('title')
+        .exists()
+        .withMessage('title is required')
         .isString()
-        .withMessage('Name must be a string'),
-      check('email')
+        .withMessage('title must be a string'),
+      check('content')
         .exists()
-        .withMessage('email is required'),
-      check('phone_number')
-        .exists()
-        .withMessage('phone number is required')
-        .matches(/^(\+\d{2,3})(?:\d\s?){9,10}$/)
-        .withMessage('Phone number must contain international code as well as 9 or 10 digits!'),
-      check('license_number')
-        .exists()
-        .withMessage('license number is required'),
-      check('car_number')
-        .exists()
-        .withMessage('car_number is required')
+        .withMessage('content is required')
     ];
   }
 }
