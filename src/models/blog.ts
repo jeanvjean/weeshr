@@ -35,7 +35,7 @@ export interface BlogInterface extends Document{
 export const blogSchema = new Schema({
   title: {type: String, required: true},
   content: {type: String, required: true},
-  author: { type: Schema.Types.ObjectId },
+  author: {type: Schema.Types.ObjectId, ref: 'users'},
 }, {
   timestamps: true
 });

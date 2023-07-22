@@ -15,29 +15,38 @@ router.post(
   Validator.validateBlogSchema(),
   val.validate(),
   Authmiddleware.getAuthorizationToken(),
+  Authmiddleware.checkUserRole('create_post'),
   middleware.getBlog('create'),
   controller.create()
 );
 
 router.get(
   '/',
+  Authmiddleware.getAuthorizationToken(),
+  Authmiddleware.checkUserRole('read'),
   controller.fetchBlogs()
 );
 
 router.get(
   '/:id',
+  Authmiddleware.getAuthorizationToken(),
+  Authmiddleware.checkUserRole('read'),
   middleware.getBlog('get'),
   controller.fetchOneBlog()
 );
 
 router.put(
   '/:id',
+  Authmiddleware.getAuthorizationToken(),
+  Authmiddleware.checkUserRole('create_post'),
   middleware.getBlog('get'),
   controller.editPost()
 );
 
 router.delete(
   '/:id',
+  Authmiddleware.getAuthorizationToken(),
+  Authmiddleware.checkUserRole('create_post'),
   middleware.getBlog('get'),
   controller.deletePost()
 );

@@ -36,6 +36,9 @@ export default class UserMiddleware extends Ctrl {
         const { headers } = req;
         // @ts-ignore
         const token: tokenPayload = headers.authorization?.split(' ')[0] === 'Bearer' ? headers.authorization?.split(' ')[1] : headers.authorization?.split(' ')[0];
+        if(!token) {
+          return this.errorResponse(req, res, 401, 'please provide a token');
+        }
         const decode = await verifyToken(token);
         // @ts-ignore
         const user = await userModel.findById(decode.id);
@@ -47,5 +50,20 @@ export default class UserMiddleware extends Ctrl {
         this.handleError(error, req, res);
       }
     };
+  }
+
+  checkUserRole(type = ''): RequestHandler {
+    return async(req: Request, res: Response, next: NextFunction) => {
+      try {
+        // @ts-ignore
+        const { data: user } = req;
+        if(user.role === 'admin' && type === 'create_post') { return next(); }
+        if((user.role === 'user' || user.role === 'admin') && type === 'read') { return next(); }
+        return this.errorResponse(req, res, 403, 'You cannot perform this action');
+      } catch (error) {
+        // @ts-ignore
+        this.handleError(error, req, res);        
+      }
+    }
   }
 }

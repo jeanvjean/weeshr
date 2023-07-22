@@ -9,6 +9,7 @@ type createUserPayload = {
     last_name: UserInterface['last_name'];
     email: UserInterface['email'];
     password: UserInterface['password'];
+    role: UserInterface['role'];
 }
 
 

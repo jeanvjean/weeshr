@@ -1,15 +1,23 @@
+import { BlogInterface } from './../../models/blog';
 import {Response, Request, RequestHandler} from 'express';
 import Ctrl from '../ctrl';
 import { blogModel } from '../../models';
+
+type createPostType = {
+  title: BlogInterface['title'];
+  content: BlogInterface['content']
+  author: BlogInterface['author']
+}
 
 
 export default class BlogController extends Ctrl {
   create(): RequestHandler {
     return async (req: Request, res: Response) =>{
       try {
-        // const data = await this.module.create(req.body);
-        // eslint-disable-next-line new-cap
-        const data = await blogModel.create(req.body);
+        // @ts-ignore
+        const { data: user } = req;
+        const post: createPostType = { ...req.body, author: user._id };
+        const data = await blogModel.create(post);
         this.ok(res, 'Blog created successfully', data);
       } catch (error) {
         // @ts-ignore
@@ -25,9 +33,8 @@ export default class BlogController extends Ctrl {
         const options = {
           page: page || 1,
           limit: perPage || 10,
-          // populate: [
-          //   {path: 'author_id', model: 'vehicle'}
-          // ],
+          populate: [{path: 'author', model: 'users', select: 
+          { 'first_name': 1, 'last_name': 1, '_id': 1, 'role': 1 }}],
           sort: {createdAt: -1}
         };
         const q = {};
@@ -46,7 +53,8 @@ export default class BlogController extends Ctrl {
     return async (req: Request, res: Response) => {
       try {
         const { params: { id } } = req;
-        const data = await blogModel.findById(id);
+        const data = await blogModel.findById(id).populate([{path: 'author', model: 'users', select: 
+        { 'first_name': 1, 'last_name': 1, '_id': 1, 'role': 1 }}]);
         // @ts-ignore
         this.ok(res, 'Blog fetched successfully', data);
       } catch (error) {
@@ -74,7 +82,7 @@ export default class BlogController extends Ctrl {
     return async (req: Request, res: Response) => {
       try {
         // @ts-ignore
-        const { params: id, blog } = req;
+        const { blog } = req;
         await blog.delete();
         this.ok(res, 'Deleted successfully', {});
       } catch (error) {
