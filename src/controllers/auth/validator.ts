@@ -48,7 +48,10 @@ export default class UserValidator extends Ctrl {
         .exists()
         .withMessage('password is required')
         .matches(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/)
-        .withMessage('Password must be at least six(8) character long and most contain at least 1 letter, 1 number and 1 special character')
+        .withMessage('Password must be at least six(8) character long and most contain at least 1 letter, 1 number and 1 special character'),
+      check('role')
+        .exists()
+        .withMessage('role is required')
     ];
   }
 
