@@ -30,6 +30,7 @@ export default class UserController extends Ctrl {
   login(): RequestHandler {
     return async (req: Request, res: Response) => {
       try {
+        // @ts-ignore
         const { user, body: { password } } = req;
         const isMatch = await compareData(password, user.password);
         if (!isMatch) {

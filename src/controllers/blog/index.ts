@@ -73,6 +73,7 @@ export default class BlogController extends Ctrl {
   deletePost(): RequestHandler {
     return async (req: Request, res: Response) => {
       try {
+        // @ts-ignore
         const { params: id, blog } = req;
         await blog.delete();
         this.ok(res, 'Deleted successfully', {});

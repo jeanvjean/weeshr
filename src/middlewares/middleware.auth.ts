@@ -10,6 +10,7 @@ export default class UserMiddleware extends Ctrl {
   getUser(type = ''): RequestHandler {
     return async (req: Request, res: Response, next: NextFunction) => {
       try {
+        // @ts-ignore
         const { body: { email }, params: { id }, data } = req;
         const payload = type === 'create' || type === 'login' ? { email } : { _id: id || data.id };
         const user = await userModel.findOne(payload);
@@ -19,6 +20,7 @@ export default class UserMiddleware extends Ctrl {
         if (user && type === 'create') {
           return this.errorResponse(req, res, 400, 'User account already exists');
         }
+        // @ts-ignore
         req.user = user;
         return next();
       } catch (error) {
@@ -37,6 +39,7 @@ export default class UserMiddleware extends Ctrl {
         const decode = await verifyToken(token);
         // @ts-ignore
         const user = await userModel.findById(decode.id);
+        // @ts-ignore
         req.data = user;
         return next();
       } catch (error) {

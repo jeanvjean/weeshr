@@ -25,5 +25,6 @@ export const userSchema = new Schema({
 });
 
 export default function factory(conn: Connection): Model<UserInterface> {
+  // @ts-ignore
   return conn.model('users', userSchema);
 }

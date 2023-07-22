@@ -1,7 +1,4 @@
 import {ConnectionOptions} from 'mongoose';
-import pgPromise = require('pg-promise');
-
-const pg = pgPromise({promiseLib: global, noWarnings: true});
 class DbConnection {
 	static NODE_ENV = `${process.env.NODE_ENV}`;
 
@@ -23,8 +20,6 @@ class DbConnection {
 	  useCreateIndex: true,
 	  useUnifiedTopology: true
 	}
-
-	static postgresDb = pg(`${DbConnection.databaseString()}`);
 }
 
 export default DbConnection;

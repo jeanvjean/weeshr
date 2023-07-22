@@ -42,5 +42,6 @@ export const blogSchema = new Schema({
 blogSchema.plugin(mongoosePaginate);
 
 export default function factory(conn: Connection): Model<BlogInterface> {
+  // @ts-ignore
   return conn.model('blogs', blogSchema);
 }
