@@ -32,16 +32,19 @@ export interface BlogInterface extends Document{
   updated_at: Date;
 }
 
-export const blogSchema = new Schema({
-  title: {type: String, required: true},
-  content: {type: String, required: true},
-  author: {type: Schema.Types.ObjectId, ref: 'users'},
-}, {
-  timestamps: true
-});
-blogSchema.plugin(mongoosePaginate);
-
-export default function factory(conn: Connection): Model<BlogInterface> {
-  // @ts-ignore
-  return conn.model('blogs', blogSchema);
+export default function() {
+  const blogSchema = new Schema({
+    title: {type: String, required: true},
+    content: {type: String, required: true},
+    author: {type: Schema.Types.ObjectId, ref: 'users'},
+  }, {
+    timestamps: true
+  });
+  blogSchema.plugin(mongoosePaginate);
+  return blogSchema
 }
+
+// export default function factory(conn: Connection): Model<BlogInterface> {
+//   // @ts-ignore
+//   return conn.model('blogs', blogSchema);
+// }

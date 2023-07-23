@@ -1,15 +1,8 @@
 import {
-  createConnection,
-  Connection,
-  Model
+  model
 } from 'mongoose';
-import blogSchema, { BlogInterface } from './blog';
-import connectionOptions from '../configs/databaseConnection';
-import userSchema, { UserInterface } from './users';
+import blogSchema from './blog';
+import userSchema from './users';
 
-const conn: Connection = createConnection(`${connectionOptions.databaseString()}`, connectionOptions.options);
-
-export const blogModel: Model<BlogInterface> = blogSchema(conn);
-export const userModel: Model<UserInterface> = userSchema(conn);
-
-conn.once('open', (): void => console.log('db connection open'));
+export const blogModel = model('blogs', blogSchema());
+export const userModel = model('users', userSchema());

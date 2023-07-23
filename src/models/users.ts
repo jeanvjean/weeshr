@@ -21,17 +21,20 @@ export interface UserInterface extends Document {
     updated_at: Date;
 }
 
-export const userSchema = new Schema({
-  first_name: {type: String, required: true},
-  last_name: {type: String, required: true},
-  email: {type: String, required: true},
-  password: {type: String, required: true},
-  role: { type: RoleEnum, required: true }
-}, {
-  timestamps: true
-});
-
-export default function factory(conn: Connection): Model<UserInterface> {
-  // @ts-ignore
-  return conn.model('users', userSchema);
+export default function() {
+  const userSchema = new Schema({
+    first_name: {type: String, required: true},
+    last_name: {type: String, required: true},
+    email: {type: String, required: true},
+    password: {type: String, required: true},
+    role: { type: RoleEnum, required: true }
+  }, {
+    timestamps: true
+  });
+  return userSchema;
 }
+
+// export default function factory(conn: Connection): Model<UserInterface> {
+//   // @ts-ignore
+//   return conn.model('users', userSchema);
+// };
