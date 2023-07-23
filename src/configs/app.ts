@@ -4,7 +4,7 @@
  * @category Configurations
  */
 class App {
-	public static appName = 'boiler'
+	public static appName = 'weeshr'
 
 	public static port = parseInt(`${process.env.PORT}` || '3200')
 

@@ -5,12 +5,14 @@ import * as morgan from 'morgan';
 import * as helmet from 'helmet';
 import * as cors from 'cors';
 import * as compression from 'compression';
+import { connect } from 'mongoose';
+import connectionOptions from './configs/databaseConnection';
 
 import AppConfig from './configs/app';
 import {ctrl} from './controllers';
 import router from './routes';;
 
-
+console.log('connectionOptions.databaseString', connectionOptions.databaseString());
 class Application {
 	public express: express.Application
 
@@ -18,9 +20,16 @@ class Application {
 	  this.express = express();
 	  this.configure();
 	  this.handleExceptions();
-	  this.express.listen(AppConfig.port, () => {
-	    console.log(`${AppConfig.appName} is listening at port ${AppConfig.port}`);
-	  });
+	  if(process.env.NODE_ENV !== 'test'){
+		this.express.listen(AppConfig.port, () => {
+			console.log(`${AppConfig.appName} is listening at port ${AppConfig.port}`);
+		});
+	}
+	// @ts-ignore
+	connect(`${connectionOptions.databaseString()}`, connectionOptions.options, (err, conn) =>{
+		if(err) { console.log(err) };
+		console.log('Connected to MongoDb');
+	})
 	}
 
 	private configure(): void {
