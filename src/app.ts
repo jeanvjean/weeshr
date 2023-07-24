@@ -10,9 +10,8 @@ import connectionOptions from './configs/databaseConnection';
 
 import AppConfig from './configs/app';
 import {ctrl} from './controllers';
-import router from './routes';;
+import router from './routes';
 
-console.log('connectionOptions.databaseString', connectionOptions.databaseString());
 class Application {
 	public express: express.Application
 
